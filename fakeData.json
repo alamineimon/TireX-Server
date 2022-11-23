@@ -1,11 +1,10 @@
 [
      {
-    "id": "1",
     "name": "Kawasaki Ninja h2r",
     "seller-name": "Md Rokon",
     "mobile": "0123456789",
     "location": "Dhaka",
-    "category-name": "kawasaki",
+    "categoryName": "kawasaki",
     "original-price": "$999",
     "selling-price": "$599",
     "condition": "Eexcellent",
@@ -15,12 +14,11 @@
     "img": "https://i.ibb.co/jf75FjN/kawasaki-ninja-h2r-5.webp"
     },
      {
-    "id": "2",
     "name": "Kawasaki z1000",
     "seller-name": "Tasin Ahmed",
     "mobile": "01254645645",
     "location": "Dhaka",
-    "category-name": "kawasaki",
+    "categoryName": "kawasaki",
     "original-price": "$899",
     "selling-price": "$399",
     "condition": "Good",
@@ -30,12 +28,11 @@
     "img": "https://i.ibb.co/2YgnTJG/z1000-sx.webp"
     },
      {
-    "id": "3",
     "name": "Kawasaki Z900",
     "seller-name": "Ridoy Khan",
     "mobile": "01254645546",
     "location": "Sylhet",
-    "category-name": "kawasaki",
+    "categoryName": "kawasaki",
     "original-price": "$799",
     "selling-price": "$599",
     "condition": "Eexcellent",
@@ -45,12 +42,11 @@
     "img": "https://i.ibb.co/W27Ff75/z900-right-front-three-quarter.gif"
     },
      {
-    "id": "4",
     "name": "KTM 390 Duke",
     "seller-name": "Tibro Ahmed",
     "mobile": "0122245543",
     "location": "Khulna",
-    "category-name": "ktm",
+    "categoryName": "ktm",
     "original-price": "$799",
     "selling-price": "$399",
     "condition": "Good",
@@ -60,12 +56,11 @@
     "img": "https://i.ibb.co/x3xY0P2/KTM-390-DUKE-Liquid-Metal-1662199231870-1662199238032-1662199238032.webp"
     },
      {
-    "id": "5",
     "name": "KTM 125 Duke",
     "seller-name": "Saimmom khan",
     "mobile": "0122454223",
     "location": "Barishal",
-    "category-name": "ktm",
+    "categoryName": "ktm",
     "original-price": "$599",
     "selling-price": "$299",
     "condition": "Eexcellent",
@@ -75,12 +70,11 @@
     "img": "https://i.ibb.co/kgS9vyX/125-duke-right-side-view.gif"
     },
      {
-    "id": "6",
     "name": "KTM RC 125",
     "seller-name": "Sangram Islam",
     "mobile": "0124556644",
     "location": "Sylhet",
-    "category-name": "ktm",
+    "categoryName": "ktm",
     "original-price": "$599",
     "selling-price": "$299",
     "condition": "Good",
@@ -90,12 +84,11 @@
     "img": "https://i.ibb.co/BzBLjBt/rc-125-2021-right-side-view-2.webp"
     },
      {
-    "id": "7",
     "name": "Yamaha MT-15",
     "seller-name": "Rafi Khan",
     "mobile": "0124553344",
     "location": "Dhaka",
-    "category-name": "yamaha",
+    "categoryName": "yamaha",
     "original-price": "$799",
     "selling-price": "$499",
     "condition": "Good",
@@ -105,12 +98,11 @@
     "img": "https://i.ibb.co/L9sfgtC/yamaha-mt-15-16551336384x3.webp"
     },
      {
-    "id": "8",
     "name": "Yamaha R15",
     "seller-name": "Shakil Khan",
     "mobile": "0122343344",
     "location": "Khulna",
-    "category-name": "yamaha",
+    "categoryName": "yamaha",
     "original-price": "$899",
     "selling-price": "$699",
     "condition": "Good",
@@ -120,12 +112,11 @@
     "img": "https://i.ibb.co/ng3zQMp/2022-Yamaha-R1-M.jpg"
     },
      {
-    "id": "9",
     "name": "Yamaha FZ-Fi V3",
     "seller-name": "Hridoy Khan",
     "mobile": "0122343344",
     "location": "Barishal",
-    "category-name": "yamaha",
+    "categoryName": "yamaha",
     "original-price": "$699",
     "selling-price": "$499",
     "condition": "Eexcellent",
