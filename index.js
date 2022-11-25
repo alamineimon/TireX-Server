@@ -69,6 +69,27 @@ async function run() {
       const users = await usersCollection.find(query).toArray()
       res.send(users)
     });
+    //make admin a user
+    app.put("/users/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id) };
+
+      const options = { upsert: true };
+
+      const updatedDoc = {
+        $set: {
+          type: "admin",
+        },
+      };
+      const result = await usersCollection.updateOne(
+        filter,
+        updatedDoc,
+        options
+      );
+      res.send(result);
+    });
+
+
     // post bokoking data
     app.post("/bookings", async (req, res) => {
       const booking = req.body;
