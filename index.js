@@ -22,6 +22,7 @@ async function run() {
   try {
     const productCollection = client.db("tirex").collection("services");
     const usersCollection = client.db("tirex").collection("users");
+    const bookingsCollection = client.db("tirex").collection("bokkings");
 
     //for get all service
     app.get("/services", async (req, res) => {
@@ -56,10 +57,16 @@ async function run() {
         .toArray();
       res.send(products);
     });
-
+// post an user
 app.post("/users", async (req, res) => {
   const user = req.body;
   const result = await usersCollection.insertOne(user);
+  res.send(result);
+});
+// post bokoking data
+app.post("/bookings", async (req, res) => {
+  const booking = req.body;
+  const result = await bookingsCollection.insertOne(booking);
   res.send(result);
 });
       
