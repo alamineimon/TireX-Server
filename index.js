@@ -8,7 +8,7 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
-
+// mongodb set up
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.juguzvf.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
@@ -16,12 +16,12 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
-console.log(uri);
 
 
 async function run() {
   try {
     const productCollection = client.db("tirex").collection("services");
+    const usersCollection = client.db("tirex").collection("users");
 
     //for get all service
     app.get("/services", async (req, res) => {
@@ -56,6 +56,19 @@ async function run() {
         .toArray();
       res.send(products);
     });
+
+    // //post user data in db
+    // app.post("/users",  async (req, res) => {
+    //   const user = req.body;
+    //   console.log(req.body);
+    //   const result = await usersCollection.insertOne(user);
+    //   res.send(result);
+    // });
+app.post("/users", async (req, res) => {
+  const user = req.body;
+  const result = await usersCollection.insertOne(user);
+  res.send(result);
+});
       
   } finally {
   }
