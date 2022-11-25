@@ -9,14 +9,13 @@ app.use(cors());
 app.use(express.json());
 
 // mongodb set up
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.juguzvf.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
-
 
 async function run() {
   try {
@@ -32,7 +31,8 @@ async function run() {
       const products = await cursor.toArray();
       res.send(products);
     });
-      
+    
+
     //get data by kawasaki category
     app.get("/kawasaki", async (req, res) => {
       // const query = {}
@@ -57,25 +57,43 @@ async function run() {
         .toArray();
       res.send(products);
     });
-// post an user
-app.post("/users", async (req, res) => {
-  const user = req.body;
-  const result = await usersCollection.insertOne(user);
-  res.send(result);
-});
-// post bokoking data
-app.post("/bookings", async (req, res) => {
-  const booking = req.body;
-  const result = await bookingsCollection.insertOne(booking);
-  res.send(result);
-});
-      
+    // post an user
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const result = await usersCollection.insertOne(user);
+      res.send(result);
+    });
+    // get all user
+    app.get("/users", async (req, res) => {
+      const query = {}
+      const users = await usersCollection.find(query).toArray()
+      res.send(users)
+    });
+    // post bokoking data
+    app.post("/bookings", async (req, res) => {
+      const booking = req.body;
+      const result = await bookingsCollection.insertOne(booking);
+      res.send(result);
+    });
+
+    // get all products by email
+    app.get("/bookings", async (req, res) => {
+      const email = req.query.email;
+      const query = { email: email };
+      const bookings = await bookingsCollection.find(query).toArray();
+      res.send(bookings);
+    });
+    // delete booking data by id
+    app.delete("/bookings/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id) };
+      const result = await bookingsCollection.deleteOne(filter);
+      res.send(result);
+    });
   } finally {
   }
 }
 run().catch((err) => console.error(err));
-
-
 
 app.get("/", (res, req) => {
   req.send("TireX server is running");
