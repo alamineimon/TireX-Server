@@ -26,12 +26,30 @@ async function run() {
     //for get all service
     app.get("/services", async (req, res) => {
       const query = {};
-      console.log(req.params);
       const cursor = productCollection.find(query);
-      const products = await cursor.toArray();
-      res.send(products);
+      const services = await cursor.toArray();
+      res.send(services);
     });
-    
+    // Add a service
+    app.post("/myservices", async (req, res) => {
+      const product = req.body;
+      const result = await productCollection.insertOne(product);
+      res.send(result);
+    });
+
+    // // get service by email------------
+    // app.get("/products", async (req, res) => {
+    //   console.log(req.query.email);
+    //   let query = {};
+    //   if (req.query.email) {
+    //     query = {
+    //       email: req.query.email
+    //     };
+    //   }
+    //   const cursor = productCollection.find(query);
+    //   const services = await cursor.toArray();
+    //   res.send(services);
+    // });
 
     //get data by kawasaki category
     app.get("/kawasaki", async (req, res) => {
@@ -65,9 +83,9 @@ async function run() {
     });
     // get all user
     app.get("/users", async (req, res) => {
-      const query = {}
-      const users = await usersCollection.find(query).toArray()
-      res.send(users)
+      const query = {};
+      const users = await usersCollection.find(query).toArray();
+      res.send(users);
     });
     //make admin a user
     app.put("/users/:id", async (req, res) => {
@@ -89,7 +107,6 @@ async function run() {
       res.send(result);
     });
 
-
     // post bokoking data
     app.post("/bookings", async (req, res) => {
       const booking = req.body;
@@ -97,6 +114,8 @@ async function run() {
       res.send(result);
     });
 
+
+    
     // get all products by email
     app.get("/bookings", async (req, res) => {
       const email = req.query.email;
@@ -104,6 +123,22 @@ async function run() {
       const bookings = await bookingsCollection.find(query).toArray();
       res.send(bookings);
     });
+    // get all products by email88888888888888888888888888888888888888888888888888888888888
+    app.get("/myservices", async (req, res) => {
+      const email = req.query.email;
+      console.log(email);
+      const query = {
+        email: email
+      };
+      const products = await productCollection.find(query).toArray();
+      res.send(products);
+    });
+
+
+
+
+
+
     // delete booking data by id
     app.delete("/bookings/:id", async (req, res) => {
       const id = req.params.id;
