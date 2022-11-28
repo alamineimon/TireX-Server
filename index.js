@@ -37,19 +37,16 @@ async function run() {
       res.send(result);
     });
 
-    // // get service by email------------
-    // app.get("/products", async (req, res) => {
-    //   console.log(req.query.email);
-    //   let query = {};
-    //   if (req.query.email) {
-    //     query = {
-    //       email: req.query.email
-    //     };
-    //   }
-    //   const cursor = productCollection.find(query);
-    //   const services = await cursor.toArray();
-    //   res.send(services);
-    // });
+    // get all products by email88888888888888888888888888888888888888888888888888888888888
+    app.get("/myservices", async (req, res) => {
+      const email = req.query.email;
+      console.log(email);
+      const query = {
+        email: email,
+      };
+      const products = await productCollection.find(query).toArray();
+      res.send(products);
+    });
 
     //get data by kawasaki category
     app.get("/kawasaki", async (req, res) => {
@@ -114,8 +111,6 @@ async function run() {
       res.send(result);
     });
 
-
-    
     // get all products by email
     app.get("/bookings", async (req, res) => {
       const email = req.query.email;
@@ -123,21 +118,6 @@ async function run() {
       const bookings = await bookingsCollection.find(query).toArray();
       res.send(bookings);
     });
-    // get all products by email88888888888888888888888888888888888888888888888888888888888
-    app.get("/myservices", async (req, res) => {
-      const email = req.query.email;
-      console.log(email);
-      const query = {
-        email: email
-      };
-      const products = await productCollection.find(query).toArray();
-      res.send(products);
-    });
-
-
-
-
-
 
     // delete booking data by id
     app.delete("/bookings/:id", async (req, res) => {
