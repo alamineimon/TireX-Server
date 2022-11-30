@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5000;
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 require("dotenv").config();
 
 //mmiddle wares
@@ -17,11 +18,29 @@ const client = new MongoClient(uri, {
   serverApi: ServerApiVersion.v1,
 });
 
+function verifyJWT(req, res, next) {
+  const authHeader = req.headers.authorization;
+  // console.log(authHeader);
+  if (!authHeader) {
+    return res.status(401).send("unauthorized access");
+  }
+  const token = authHeader.split(" ")[1];
+  // console.log(token);
+  jwt.verify(token, process.env.ACCESS_TOKEN, function (err, decoded) {
+    if (err) {
+      return res.status(403).send("Forbidden access");
+    }
+    req.decoded = decoded;
+    next();
+  });
+}
+
 async function run() {
   try {
     const productCollection = client.db("tirex").collection("services");
     const usersCollection = client.db("tirex").collection("users");
     const bookingsCollection = client.db("tirex").collection("bokkings");
+    const paymentsCollection = client.db("tirex").collection("payment");
 
     //for get all service
     app.get("/services", async (req, res) => {
@@ -40,7 +59,6 @@ async function run() {
     // get all products by email88888888888888888888888888888888888888888888888888888888888
     app.get("/myservices", async (req, res) => {
       const email = req.query.email;
-      console.log(email);
       const query = {
         email: email,
       };
@@ -126,13 +144,60 @@ async function run() {
       const result = await bookingsCollection.deleteOne(filter);
       res.send(result);
     });
+
+
+
+    //for payment
+    app.get("/bookings/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await bookingsCollection.findOne(query);
+      res.send(result);
+    });
+
+    // FOR PAYMENT Server
+    app.post("/create-payment-intent", async (req, res) => {
+      const booking = req.body;
+      const price = booking.resale_price;
+      const amount = price * 100;
+
+      const paymentIntent = await stripe.paymentIntents.create({
+        currency: "USD",
+        amount: amount,
+        payment_method_types: ["card"],
+      });
+      res.send({
+        clientSecret: paymentIntent.client_secret,
+      });
+    });
+
+    
+    // payment info saVE
+    app.post("/payments", async (req, res) => {
+      const payment = req.body;
+      console.log(req.body);
+      const result = await paymentsCollection.insertOne(payment);
+      const id = payment.bookingId;
+      const filter = { _id: ObjectId(id) };
+      const updatedDoc = {
+        $set: {
+          paid: true,
+          transactionId: payment.transactionId,
+        },
+      };
+      const updateResult = await bookingsCollection.updateOne(
+        filter,
+        updatedDoc
+      );
+      res.send(result);
+    });
   } finally {
   }
 }
 run().catch((err) => console.error(err));
 
-app.get("/", (res, req) => {
-  req.send("TireX server is running");
+app.get("/", ( req, res) => {
+  res.send("TireX server is running");
 });
 
 app.listen(port, () => {
